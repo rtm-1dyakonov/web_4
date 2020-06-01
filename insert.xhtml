@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      >
+    <head>
+        <title>insert element page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+         <link type="text/css" rel="stylesheet" href="styles/style.css"/>
+    </head>
+    <body>
+        <c:choose>
+            <c:when test="#{client==null}">
+                <script>
+                    function goto_login() {
+                        document.location.href = "#{request.contextPath}/faces/index.xhtml";
+                    }
+                    setTimeout(goto_login, 5000);
+                </script>
+                <center>
+                    <p>Вы не авторизированы</p> <a style="color: gray" href="#{request.contextPath}/faces/index.xhtml">перейти немедленно для входа</a>
+                </center>
+
+            </c:when>
+            <c:otherwise>
+                <section class="insert-section">
+                    <div class="insert-container">
+                        <h:form id="insert-form">
+                            <h:outputLabel for="model" class="control-label col-sm-4">модель:</h:outputLabel>
+                            <br/>
+                            <h:inputText id="model" label="модель" value="#{carBean.model}">
+                                <f:validator validatorId="requiredValidator"/>
+                                <f:validator validatorId="modelValidator"/>
+                            </h:inputText>
+                            <div style="color:#cc0000"><h:message for="model"/></div>
+                            <br/>
+                            <h:outputLabel for="manufacturer" class="control-label col-sm-4">производитель:</h:outputLabel>
+                            <br/>
+                            <h:inputText id="manufacturer" value="#{carBean.manufacturer}">
+                                <f:validator validatorId="requiredValidator"/>
+                                <f:validator validatorId="manufacturerValidator"/>
+                            </h:inputText>
+                             <div style="color:#cc0000"><h:message for="manufacturer"/></div>
+                            <br/>
+                            <h:outputLabel for="price" class="control-label col-sm-4">цена:</h:outputLabel>
+                            <br/>
+                            <h:inputText id="price" value="#{carBean.price}">
+                                <f:converter converterId="priceConverter" />
+                                  <f:validator validatorId="requiredValidator"/>
+                                  <f:validator validatorId="priceValidator"/>
+                            </h:inputText>
+                             <div style="color:#cc0000"><h:message for="price"/></div>
+                            <br/>
+                            <h:outputLabel for="count" class="control-label col-sm-4">количество:</h:outputLabel>
+                            <br/>
+                            <h:inputText id="count" value="#{carBean.count}">
+                                  <f:converter converterId="countConverter" />
+                                  <f:validator validatorId="requiredValidator"/>
+                                  <f:validator validatorId="countValidator"/>
+                            </h:inputText>
+                            <div style="color:#cc0000"><h:message for="count"/></div>
+                            <br/>
+                            <h:commandButton class="command" action="#{carBean.addCar(carBean)}" value="добавить"></h:commandButton>
+                            
+                        </h:form>
+                        
+                    </div>
+
+                </section>
+
+            </c:otherwise>
+
+        </c:choose>
+    </body>
+</html>

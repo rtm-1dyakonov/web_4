@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <link type="text/css" rel="stylesheet" href="styles/style.css"/>
+
+    </h:head>
+    <h:body>
+        <section class="login-section">
+            <div class="container">
+                <div class="form_content">
+                    <h2>Здравствуй, друг!</h2>
+                    <p>Введи свой логин и пароль для доступа к системе.</p>
+                </div>
+                <div class="login_form">
+                    <h1>Войти в систему</h1>
+                    <h:form id="login-form">
+                        <h:inputText id="login" value="#{customerBean.login}" style="#{customerBean.isLoginError||customerBean.isNoClientError?'border:2px solid red;':'border:2px solid #673ab7;'}" placeholder="Логин пользователя"></h:inputText>
+                        <h:inputSecret id="password" placeholder="Пароль" value="#{customerBean.password}" style="#{customerBean.isPassError||customerBean.isNoClientError?'border:2px solid red;':'border:2px solid #673ab7;'}" ></h:inputSecret>
+                        <h:commandButton action="#{customerBean.validateUserLogin()}" value="LOGIN">
+                            <f:param name="operation" value="login"></f:param>
+                        </h:commandButton>
+                    </h:form>
+                    <div class="err"><h:message for="login"></h:message></div> 
+                    <div class="err"><h:message for="password"></h:message></div> 
+
+                </div>
+            </div>
+
+        </section>
+    </h:body>
+</html>
+
